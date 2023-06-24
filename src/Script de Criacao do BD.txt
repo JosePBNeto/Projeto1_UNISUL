@@ -1,0 +1,36 @@
+CREATE DATABASE emprestimos_db;
+use emprestimos_db;
+CREATE TABLE ferramentas (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  marca VARCHAR(100) NOT NULL,
+  custo DECIMAL(50,2) NOT NULL,
+  disponibilidade BOOLEAN DEFAULT true NOT NULL
+);
+
+CREATE TABLE amigos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  telefone VARCHAR(30) NOT NULL,
+  totalEmp INT DEFAULT 0 
+);
+
+CREATE TABLE emprestimos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  ferramenta_id INT NULL,
+  amigo_id INT NULL,
+  data_emprestimo DATE NOT NULL,
+  data_devolucao DATE,
+  status BOOLEAN DEFAULT true,
+  FOREIGN KEY (ferramenta_id) REFERENCES ferramentas(id),
+  FOREIGN KEY (amigo_id) REFERENCES amigos(id)
+);
+
+CREATE TABLE eventos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  amigo_id INT NOT NULL,
+  nome_evento VARCHAR(100) NOT NULL,
+  data_evento DATE NOT NULL,
+  FOREIGN KEY (amigo_id) REFERENCES amigos(id)
+)ENGINE=InnoDB;
